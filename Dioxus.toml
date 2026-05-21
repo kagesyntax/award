@@ -1,0 +1,16 @@
+[application]
+
+[web.app]
+title = "ADEDEJI — Rust Developer"
+
+[web.resource]
+style = [
+  "https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap",
+]
+script = [
+  "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js",
+]
+
+[web.resource.dev]
+script = []

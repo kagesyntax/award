@@ -1,0 +1,15 @@
+[package]
+name = "award"
+version = "0.1.0"
+authors = ["kagesyntax <em2009manu2010el@gmail.com>"]
+edition = "2021"
+
+[dependencies]
+dioxus = { version = "0.7.1", features = ["web"] }
+dioxus-free-icons = { version = "0.10.0", features = ["lucide"] }
+
+[features]
+default = ["web"]
+web = ["dioxus/web"]
+desktop = ["dioxus/desktop"]
+mobile = ["dioxus/mobile"]

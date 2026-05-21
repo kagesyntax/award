@@ -1,0 +1,29 @@
+# Target directory for built artifacts
+/target
+/dist
+
+# OS files
+.DS_Store
+
+# Rust backup files
+**/*.rs.bk
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Netlify
+.netlify/
+
+# Node modules (if any)
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
