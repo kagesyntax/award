@@ -1,4 +1,4 @@
-# TOLU — Portfolio OS
+# TOSIN — Portfolio OS
 
 > A personal developer portfolio built with Dioxus 0.7 and Rust — compiled to WebAssembly. No JavaScript frameworks. No React. Just Rust, running in the browser at native speed.
 

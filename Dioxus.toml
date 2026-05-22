@@ -1,7 +1,7 @@
 [application]
 
 [web.app]
-title = "TOLU — Rust Developer"
+title = "TOSIN — Rust Developer"
 
 [web.resource]
 style = [
