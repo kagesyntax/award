@@ -37,7 +37,7 @@ pub fn Navbar() -> Element {
                 class: "navbar-inner",
                 div {
                     class: "navbar-brand",
-                    "ADEDEJI"
+                    "TOLU"
                 }
                 div {
                     class: "navbar-links",
