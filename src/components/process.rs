@@ -1,3 +1,4 @@
+use crate::util::use_scroll_animation;
 use dioxus::prelude::*;
 
 struct ProcessStep {
@@ -8,25 +9,7 @@ struct ProcessStep {
 
 #[component]
 pub fn Process() -> Element {
-    use_effect(move || {
-        dioxus::document::eval(
-            r#"
-            function runProcessAnimation() {
-                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-                    setTimeout(runProcessAnimation, 100);
-                    return;
-                }
-                gsap.registerPlugin(ScrollTrigger);
-                console.log('GSAP ScrollTrigger loaded, running process animation');
-                gsap.from('.process-step', {
-                    scrollTrigger: { trigger: '.process-section', start: 'top 75%' },
-                    duration: 0.7, y: 40, stagger: 0.1, ease: 'power2.out'
-                });
-            }
-            runProcessAnimation();
-        "#,
-        );
-    });
+    use_scroll_animation(".process-section", ".process-step", 0.7, 40.0, 0.1, 0.0);
 
     let steps: Vec<ProcessStep> = vec![
         ProcessStep {

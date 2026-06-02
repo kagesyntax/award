@@ -55,7 +55,7 @@ pub fn Hero() -> Element {
                             div { class: "hero-line-3", "PERFORM." }
                         }
                         p {
-                            class: "hero-sub font-instrument-serif font-italic text-sub",
+                            class: "hero-sub font-outfit font-italic text-sub",
                             "Rust developer. Dioxus specialist.\nObsessed with speed and precision."
                         }
                         div {

@@ -1,30 +1,10 @@
+use crate::util::use_scroll_animation;
 use dioxus::prelude::*;
 
 #[component]
 pub fn About() -> Element {
-    use_effect(move || {
-        dioxus::document::eval(
-            r#"
-            function runAboutAnimation() {
-                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-                    setTimeout(runAboutAnimation, 100);
-                    return;
-                }
-                gsap.registerPlugin(ScrollTrigger);
-                console.log('GSAP ScrollTrigger loaded, running about animation');
-                gsap.from('.about-copy', {
-                    scrollTrigger: { trigger: '.about-section', start: 'top 75%' },
-                    duration: 0.9, y: 50, ease: 'power3.out'
-                });
-                gsap.from('.about-number', {
-                    scrollTrigger: { trigger: '.about-section', start: 'top 75%' },
-                    duration: 0.6, y: 30, ease: 'power2.out'
-                });
-            }
-            runAboutAnimation();
-        "#,
-        );
-    });
+    use_scroll_animation(".about-section", ".about-copy", 0.9, 50.0, 0.0, 0.0);
+    use_scroll_animation(".about-section", ".about-number", 0.6, 30.0, 0.0, 0.0);
 
     rsx! {
         section {
@@ -46,12 +26,12 @@ pub fn About() -> Element {
                         }
                     }
                     div {
-                        class: "about-copy font-instrument-serif text-text",
+                        class: "about-copy font-outfit text-text",
                         p { class: "mb-8 text-3xl leading-relaxed",
                             "I started writing Rust because I wanted to build things that didn't apologize for being fast. Dioxus gave me a way to bring that philosophy to the web — full-stack, compiled, real. No runtime bloat. No compromise."
                         }
                         p { class: "text-3xl leading-relaxed",
-                            "I'm based in Nigeria. I work with designers and founders who want to ship something that actually looks and performs like it cost what it should. One month in. Already not going back."
+                            "I'm based in Nigeria. I work with designers and founders who want to ship something that actually looks and performs like it cost what it should. Every project starts with the same question: what's the fastest path from this idea to something real?"
                         }
                     }
                 }

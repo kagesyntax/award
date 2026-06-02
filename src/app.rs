@@ -8,59 +8,26 @@ pub fn App() -> Element {
     use_effect(move || {
         dioxus::document::eval(
             r#"
-            const progressBar = document.getElementById('scroll-progress');
-            window.addEventListener('scroll', () => {
-                const scrollTop = window.scrollY;
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const scrollPercent = (scrollTop / docHeight) * 100;
-                progressBar.style.width = scrollPercent + '%';
-            });
+            function runAppEffects() {
+                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+                    setTimeout(runAppEffects, 100);
+                    return;
+                }
+                gsap.registerPlugin(ScrollTrigger);
 
-            // Custom cursor
-            const cursor = document.createElement('div');
-            cursor.className = 'custom-cursor';
-            document.body.appendChild(cursor);
-
-            const dot = document.createElement('div');
-            dot.className = 'custom-cursor-dot';
-            document.body.appendChild(dot);
-
-            let mouseX = 0, mouseY = 0;
-            let cursorX = 0, cursorY = 0;
-
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                dot.style.left = mouseX + 'px';
-                dot.style.top = mouseY + 'px';
-            });
-
-            function animateCursor() {
-                cursorX += (mouseX - cursorX) * 0.15;
-                cursorY += (mouseY - cursorY) * 0.15;
-                cursor.style.left = cursorX + 'px';
-                cursor.style.top = cursorY + 'px';
-                requestAnimationFrame(animateCursor);
-            }
-            animateCursor();
-
-            const hoverElements = document.querySelectorAll('a, button, .cursor-pointer, .stack-card, .hero-button');
-            hoverElements.forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
-            });
-
-            // Re-observe for dynamically added elements
-            const observer = new MutationObserver(() => {
-                document.querySelectorAll('a, button, .cursor-pointer, .stack-card, .hero-button').forEach(el => {
-                    if (!el.dataset.cursorBound) {
-                        el.dataset.cursorBound = 'true';
-                        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-                        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
-                    }
+                // Scroll progress bar via GSAP
+                gsap.to('#scroll-progress', {
+                    width: '100%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: document.body,
+                        start: 'top top',
+                        end: 'bottom bottom',
+                        scrub: 0.3,
+                    },
                 });
-            });
-            observer.observe(document.body, { childList: true, subtree: true });
+            }
+            runAppEffects();
         "#,
         );
     });

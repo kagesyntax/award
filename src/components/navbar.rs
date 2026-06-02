@@ -5,16 +5,27 @@ pub fn Navbar() -> Element {
     use_effect(move || {
         dioxus::document::eval(
             r#"
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 80) {
-                    navbar.style.backgroundColor = 'rgba(8, 8, 8, 0.95)';
-                    navbar.style.backdropFilter = 'blur(8px)';
-                } else {
-                    navbar.style.backgroundColor = 'transparent';
-                    navbar.style.backdropFilter = 'none';
+            function runNavbarEffect() {
+                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+                    setTimeout(runNavbarEffect, 100);
+                    return;
                 }
-            });
+                gsap.registerPlugin(ScrollTrigger);
+                const navbar = document.getElementById('navbar');
+                ScrollTrigger.create({
+                    trigger: document.body,
+                    start: '80px top',
+                    onEnter: () => {
+                        navbar.style.backgroundColor = 'rgba(8, 8, 8, 0.95)';
+                        navbar.style.backdropFilter = 'blur(8px)';
+                    },
+                    onLeaveBack: () => {
+                        navbar.style.backgroundColor = 'transparent';
+                        navbar.style.backdropFilter = 'none';
+                    },
+                });
+            }
+            runNavbarEffect();
         "#,
         );
     });

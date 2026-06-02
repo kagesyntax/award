@@ -1,3 +1,4 @@
+use crate::util::use_scroll_animation;
 use dioxus::prelude::*;
 use dioxus_free_icons::icons::ld_icons::*;
 use dioxus_free_icons::Icon;
@@ -20,30 +21,7 @@ impl PartialEq for StackItem {
 
 #[component]
 pub fn Stack() -> Element {
-    use_effect(move || {
-        dioxus::document::eval(
-            r#"
-            function runStackAnimation() {
-                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-                    setTimeout(runStackAnimation, 100);
-                    return;
-                }
-                gsap.registerPlugin(ScrollTrigger);
-                gsap.from('.stack-card', {
-                    scrollTrigger: {
-                        trigger: '.stack-section',
-                        start: 'top 75%',
-                    },
-                    duration: 0.8,
-                    y: 40,
-                    stagger: 0.1,
-                    ease: 'power3.out'
-                });
-            }
-            runStackAnimation();
-        "#,
-        );
-    });
+    use_scroll_animation(".stack-section", ".stack-card", 0.8, 40.0, 0.1, 0.0);
 
     let stack_items = vec![
         StackItem {

@@ -1,3 +1,4 @@
+use crate::util::use_scroll_animation;
 use dioxus::prelude::*;
 
 #[derive(Clone, PartialEq)]
@@ -13,25 +14,7 @@ struct Project {
 
 #[component]
 pub fn Work() -> Element {
-    use_effect(move || {
-        dioxus::document::eval(
-            r#"
-            function runWorkAnimation() {
-                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-                    setTimeout(runWorkAnimation, 100);
-                    return;
-                }
-                gsap.registerPlugin(ScrollTrigger);
-                console.log('GSAP ScrollTrigger loaded, running work animation');
-                gsap.from('.work-card', {
-                    scrollTrigger: { trigger: '.work-section', start: 'top 75%' },
-                    duration: 0.8, y: 50, stagger: 0.12, ease: 'power3.out'
-                });
-            }
-            runWorkAnimation();
-        "#,
-        );
-    });
+    use_scroll_animation(".work-section", ".work-card", 0.8, 50.0, 0.12, 0.0);
 
     let projects: Vec<Project> = vec![
         Project {

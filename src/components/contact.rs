@@ -1,30 +1,10 @@
+use crate::util::use_scroll_animation;
 use dioxus::prelude::*;
 
 #[component]
 pub fn Contact() -> Element {
-    use_effect(move || {
-        dioxus::document::eval(
-            r#"
-            function runContactAnimation() {
-                if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-                    setTimeout(runContactAnimation, 100);
-                    return;
-                }
-                gsap.registerPlugin(ScrollTrigger);
-                console.log('GSAP ScrollTrigger loaded, running contact animation');
-                gsap.from('.contact-heading', {
-                    scrollTrigger: { trigger: '.contact-section', start: 'top 75%' },
-                    duration: 1.0, y: 60, ease: 'power3.out'
-                });
-                gsap.from('.contact-links', {
-                    scrollTrigger: { trigger: '.contact-section', start: 'top 75%' },
-                    duration: 0.8, y: 30, ease: 'power2.out', delay: 0.3
-                });
-            }
-            runContactAnimation();
-        "#,
-        );
-    });
+    use_scroll_animation(".contact-section", ".contact-heading", 1.0, 60.0, 0.0, 0.0);
+    use_scroll_animation(".contact-section", ".contact-links", 0.8, 30.0, 0.0, 0.3);
 
     rsx! {
         section {
@@ -41,20 +21,20 @@ pub fn Contact() -> Element {
                 div {
                     class: "contact-links",
                     a {
-                        href: "mailto:hello@yourdomain.com",
-                        "hello@yourdomain.com"
+                        href: "mailto:hello@tosin.dev",
+                        "hello@tosin.dev"
                     }
                     span { class: "text-mist", "·" }
                     a {
-                        href: "https://github.com",
+                        href: "https://github.com/kagesyntax",
                         target: "_blank",
                         "GitHub"
                     }
                     span { class: "text-mist", "·" }
                     a {
-                        href: "https://twitter.com",
+                        href: "https://x.com/kagesyntax",
                         target: "_blank",
-                        "Twitter/X"
+                        "X / Twitter"
                     }
                 }
                 div {
